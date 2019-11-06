@@ -10,14 +10,17 @@ An application developed in Java 8 as backend, Vue.JS as frontend and using a My
    Spring Boot 2.2.0
    Maven
    MySQL 5.7 Database
-   
-2. Comilation.
+
+2. Run this command in your MSQL prompt to generate a local Schema
+	CREATE SCHEMA `eletrostoredb` DEFAULT CHARACTER SET latin1 ;
+
+3. Comilation.
    cd /Users/hespanhol/git/EletroStore
    
-3. Deploy.
+4. Deploy.
 
    Copy the War EletroStore-X.X.X.war to following directory.
    
-4. Profile configuration.
+5. Profile configuration.
    
    Just paste the WAR file inside of Apache
