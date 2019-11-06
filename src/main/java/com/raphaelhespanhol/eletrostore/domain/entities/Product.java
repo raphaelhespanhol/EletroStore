@@ -1,6 +1,7 @@
 package com.raphaelhespanhol.eletrostore.domain.entities;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,6 +41,9 @@ public class Product {
 	
 	private BigDecimal price;
 	
+	@Lob
+	private byte[] image;
+	
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -50,12 +55,14 @@ public class Product {
 				   @JsonProperty("category") Category category,
 				   @JsonProperty("name") String name, 
 				   @JsonProperty("price") BigDecimal price, 
+				   @JsonProperty("image") byte[] image,
 				   @JsonProperty("lastUpdate") Date lastUpdate) {
 		super();
 		this.id = id;
 		this.category = category;
 		this.name = name;
 		this.price = price;
+		this.image = image;
 		this.lastUpdate = lastUpdate;
 	}
 
@@ -91,6 +98,14 @@ public class Product {
 		this.price = price;
 	}
 
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}
@@ -101,7 +116,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", category=" + category + ", name=" + name + ", price=" + price + ", lastUpdate="
-				+ lastUpdate + "]";
+		return "Product [id=" + id + ", category=" + category + ", name=" + name + ", price=" + price + ", image="
+				+ Arrays.toString(image) + ", lastUpdate=" + lastUpdate + "]";
 	}
 }
