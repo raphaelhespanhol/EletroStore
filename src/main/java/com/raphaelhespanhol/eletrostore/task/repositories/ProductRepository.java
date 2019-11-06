@@ -38,12 +38,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	/**
 	 * @param String name
 	 * @param Long categoryId
-	 * return List<Product>
+	 * return Optional<Product>
 	 */
 	@Query("SELECT p "
 		 + "FROM Product p "
 		 + "INNER JOIN p.category c "
 		 + "WHERE p.name = ?1 AND c.id = ?2")
-	List<Product> findByNameAndCategoryId(String name, Long categoryId);
+	Optional<Product> findByNameAndCategoryId(String name, Long categoryId);
 }
 
