@@ -1,6 +1,5 @@
 package com.raphaelhespanhol.eletrostore.domain.entities;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -39,7 +38,7 @@ public class Product {
 	@NotBlank @Size(min=1, max=128)
 	private String name;
 	
-	private BigDecimal price;
+	private double price;
 	
 	@Lob
 	private byte[] image;
@@ -54,7 +53,7 @@ public class Product {
 	public Product(@JsonProperty("id") Long id, 
 				   @JsonProperty("category") Category category,
 				   @JsonProperty("name") String name, 
-				   @JsonProperty("price") BigDecimal price, 
+				   @JsonProperty("price") double price, 
 				   @JsonProperty("image") byte[] image,
 				   @JsonProperty("lastUpdate") Date lastUpdate) {
 		super();
@@ -90,11 +89,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public BigDecimal getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
