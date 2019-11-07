@@ -1,17 +1,16 @@
 package com.raphaelhespanhol.eletrostore.presentation.controllers;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author RaphaelHespanhol
  * Presentation Layer - Converts and response on XML or JSON format
  */
-@RestController
-@RequestMapping(value = "api/sysinfo")
-public class HomeController {
+@Controller
+public class MainController {
 	
 	// inject via application.properties
     @Value("${service.app.name}")
@@ -23,8 +22,14 @@ public class HomeController {
     @Value("${service.app.about}")
     private String appAbout;
     
-    @GetMapping
-    public String sysInfo() {
-        return appName + " -> Tools(" + appVersion + ") by " + appAbout;
+    @GetMapping("/")
+    public String index(Model model) {
+    	// View index.html through a thymeleaf variable
+        model.addAttribute("appName", appName);
+        model.addAttribute("appVersion", appVersion);
+        model.addAttribute("appAbout", appAbout);
+        
+        // this just means render index.html from template folder
+        return "index";
     }
 }

@@ -1,4 +1,4 @@
-package com.raphaelhespanhol.eletrostore.presentation.controllers;
+package com.raphaelhespanhol.eletrostore.presentation.restcontrollers;
 
 import java.net.URI;
 import java.util.List;
@@ -30,12 +30,12 @@ import com.raphaelhespanhol.eletrostore.task.services.ProductService;
  */
 @RestController
 @RequestMapping(value = "api/products")
-public class ProductController {
+public class ProductRestController {
 	
 	private final ProductService service;
 
 	@Autowired
-	public ProductController(ProductService service) {
+	public ProductRestController(ProductService service) {
 		this.service = service;
 	}
 	

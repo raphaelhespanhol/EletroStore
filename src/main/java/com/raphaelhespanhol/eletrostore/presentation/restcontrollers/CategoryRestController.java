@@ -1,4 +1,4 @@
-package com.raphaelhespanhol.eletrostore.presentation.controllers;
+package com.raphaelhespanhol.eletrostore.presentation.restcontrollers;
 
 import java.net.URI;
 import java.util.List;
@@ -30,12 +30,12 @@ import com.raphaelhespanhol.eletrostore.task.services.CategoryService;
  */
 @RestController
 @RequestMapping(value = "api/categories")
-public class CategoryController {
+public class CategoryRestController {
 	
 	private final CategoryService service;
 
 	@Autowired
-	public CategoryController(CategoryService service) {
+	public CategoryRestController(CategoryService service) {
 		this.service = service;
 	}
 	
