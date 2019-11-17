@@ -85,19 +85,26 @@ public class ProductRestController {
 	}
 	
 	/*************************CUSTOM CALLS*************************/
-	@GetMapping(path = "/findByName", params = {"name"})
-	public Product findByName(@RequestParam(value = "name") String name) {
-		Optional<Product> optProduct = service.findByName(name);
+	@GetMapping(path = "/findAllWithoutImages")
+	public List<Object> findAllWithoutImages() {
+		List<Object> products = service.findAllWithoutImages();
 		
-		if(null == optProduct)
+		return products;
+	}
+	
+	@GetMapping(path = "/findByName", params = {"name"})
+	public List<Object> findByName(@RequestParam(value = "name") String name) {
+		List<Object> products = service.findByName(name);
+		
+		if(null == products)
 			throw new EntityNotFoundException("Not found the product by name ".concat(name));
 		
-		return optProduct.get();
+		return products;
 	}
 	
 	@GetMapping(path = "/findAllByCategoryId", params = {"categoryId"})
-	public List<Product> findAllByCategoryId(@RequestParam(value = "categoryId") Long categoryId) {
-		List<Product> products = service.findAllByCategoryId(categoryId);
+	public List<Object> findAllByCategoryId(@RequestParam(value = "categoryId") Long categoryId) {
+		List<Object> products = service.findAllByCategoryId(categoryId);
 		
 		if(null == products)
 			throw new EntityNotFoundException("Not found the product by category id " + categoryId);
@@ -106,13 +113,13 @@ public class ProductRestController {
 	}
 	
 	@GetMapping(path = "/findByNameAndCategoryId", params = {"name","categoryId"})
-	public Product findByNameAndCategoryId(@RequestParam(value = "name") String name,
+	public List<Object> findByNameAndCategoryId(@RequestParam(value = "name") String name,
 										   @RequestParam(value = "categoryId") Long categoryId) {
-		Optional<Product> optProduct = service.findByNameAndCategoryId(name, categoryId);
+		List<Object> products = service.findByNameAndCategoryId(name, categoryId);
 		
-		if(null == optProduct)
+		if(null == products)
 			throw new EntityNotFoundException("Not found the product by " + name + " and category id " + categoryId);
 		
-		return optProduct.get();
+		return products;
 	}
 }

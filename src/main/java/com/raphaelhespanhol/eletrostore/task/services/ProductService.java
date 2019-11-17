@@ -33,15 +33,19 @@ public class ProductService {
 		return repository.findById(id);
 	}
 	
-	public Optional<Product> findByName(String name) {
+	public List<Object> findAllWithoutImages(){
+		return repository.findAllWithoutImages();
+	}
+	
+	public List<Object> findByName(String name) {
 		return repository.findAllByName(name);
 	}
 	
-	public List<Product> findAllByCategoryId(Long categoryId) {
+	public List<Object> findAllByCategoryId(Long categoryId) {
 		return repository.findAllByCategoryId(categoryId);
 	}
 	
-	public Optional<Product> findByNameAndCategoryId(String name, Long categoryId) {
+	public List<Object> findByNameAndCategoryId(String name, Long categoryId) {
 		return repository.findByNameAndCategoryId(name, categoryId);
 	}
 	
@@ -59,12 +63,6 @@ public class ProductService {
 			Optional<Category> optCategory = categoryService.findByName(product.getCategory().getName());
 			//Verify if exists, returning the value or add a new one
 			product.setCategory((optCategory.isPresent())?optCategory.get():categoryService.save(product.getCategory()));	
-		}
-		
-		if (null == product.getId() || product.getId() == 0) {
-			Optional<Product> optProduct = this.findByName(product.getName());
-			if (optProduct.isPresent())
-				product.setId(optProduct.get().getId());
 		}
 		
 		//Always updating the date

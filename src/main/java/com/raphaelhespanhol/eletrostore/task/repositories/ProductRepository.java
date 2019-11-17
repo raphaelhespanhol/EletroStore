@@ -1,7 +1,6 @@
 package com.raphaelhespanhol.eletrostore.task.repositories;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,33 +16,42 @@ import com.raphaelhespanhol.eletrostore.domain.entities.Product;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	/**
-	 * @param String name
-	 * return Optional<Product>
+	 * return List<Object>
 	 */
-	@Query("SELECT p "
+	@Query(value="SELECT p.id, p.name, c.name AS category, p.price, p.last_update "
 		 + "FROM Product p "
-		 + "WHERE p.name = ?1")
-	Optional<Product> findAllByName(String name);
-
+		 + "INNER JOIN Category c ON p.id_category=c.id", nativeQuery=true)
+	List<Object> findAllWithoutImages();
+	
 	/**
 	 * @param Long categoryId
-	 * return List<Product>
+	 * return List<Object>
 	 */
-	@Query("SELECT p "
-		 + "FROM Product p "
-		 + "INNER JOIN p.category c "
-		 + "WHERE c.id = ?2")
-	List<Product> findAllByCategoryId(Long categoryId);
+	@Query(value="SELECT p.id, p.name, c.name AS category, p.price, p.last_update "
+			 + "FROM Product p "
+			 + "INNER JOIN Category c ON p.id_category=c.id "
+			 + "WHERE c.id = ?2", nativeQuery=true)
+	List<Object> findAllByCategoryId(Long categoryId);
 	
 	/**
 	 * @param String name
-	 * @param Long categoryId
-	 * return Optional<Product>
+	 * return List<Object>
 	 */
-	@Query("SELECT p "
-		 + "FROM Product p "
-		 + "INNER JOIN p.category c "
-		 + "WHERE p.name = ?1 AND c.id = ?2")
-	Optional<Product> findByNameAndCategoryId(String name, Long categoryId);
+	@Query(value="SELECT p.id, p.name, c.name AS category, p.price, p.last_update "
+			 + "FROM Product p "
+			 + "INNER JOIN Category c ON p.id_category=c.id "
+			 + "WHERE p.name LIKE %?1%", nativeQuery=true)
+	List<Object> findAllByName(String name);
+
+	/**
+	 * @param String name
+	 * @param Long categoryId
+	 * return List<Object>
+	 */
+	@Query(value="SELECT p.id, p.name, c.name AS category, p.price, p.last_update "
+			 + "FROM Product p "
+			 + "INNER JOIN Category c ON p.id_category=c.id "
+			 + "WHERE p.name LIKE %?1% AND c.id = ?2", nativeQuery=true)
+	List<Object> findByNameAndCategoryId(String name, Long categoryId);
 }
 
