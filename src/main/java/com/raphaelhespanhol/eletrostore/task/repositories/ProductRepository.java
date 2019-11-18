@@ -30,7 +30,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Query(value="SELECT p.id, p.name, c.name AS category, p.price, p.last_update "
 			 + "FROM Product p "
 			 + "INNER JOIN Category c ON p.id_category=c.id "
-			 + "WHERE c.id = ?2", nativeQuery=true)
+			 + "WHERE c.id = ?1", nativeQuery=true)
 	List<Object> findAllByCategoryId(Long categoryId);
 	
 	/**
@@ -52,6 +52,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 			 + "FROM Product p "
 			 + "INNER JOIN Category c ON p.id_category=c.id "
 			 + "WHERE p.name LIKE %?1% AND c.id = ?2", nativeQuery=true)
-	List<Object> findByNameAndCategoryId(String name, Long categoryId);
+	List<Object> findAllByNameAndCategoryId(String name, Long categoryId);
 }
 

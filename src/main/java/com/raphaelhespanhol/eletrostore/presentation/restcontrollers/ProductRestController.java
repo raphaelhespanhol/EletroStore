@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -92,9 +91,9 @@ public class ProductRestController {
 		return products;
 	}
 	
-	@GetMapping(path = "/findByName", params = {"name"})
-	public List<Object> findByName(@RequestParam(value = "name") String name) {
-		List<Object> products = service.findByName(name);
+	@GetMapping(path = "/findAllByName/{name}")
+	public List<Object> findAllByName(@PathVariable("name") String name) {
+		List<Object> products = service.findAllByName(name);
 		
 		if(null == products)
 			throw new EntityNotFoundException("Not found the product by name ".concat(name));
@@ -102,8 +101,8 @@ public class ProductRestController {
 		return products;
 	}
 	
-	@GetMapping(path = "/findAllByCategoryId", params = {"categoryId"})
-	public List<Object> findAllByCategoryId(@RequestParam(value = "categoryId") Long categoryId) {
+	@GetMapping(path = "/findAllByCategoryId/{categoryId}")
+	public List<Object> findAllByCategoryId(@PathVariable("categoryId") Long categoryId) {
 		List<Object> products = service.findAllByCategoryId(categoryId);
 		
 		if(null == products)
@@ -112,10 +111,10 @@ public class ProductRestController {
 		return products;
 	}
 	
-	@GetMapping(path = "/findByNameAndCategoryId", params = {"name","categoryId"})
-	public List<Object> findByNameAndCategoryId(@RequestParam(value = "name") String name,
-										   @RequestParam(value = "categoryId") Long categoryId) {
-		List<Object> products = service.findByNameAndCategoryId(name, categoryId);
+	@GetMapping(path = "/findAllByNameAndCategoryId/{name}/{categoryId}")
+	public List<Object> findAllByNameAndCategoryId(@PathVariable("name") String name,
+												   @PathVariable("categoryId") Long categoryId) {
+		List<Object> products = service.findAllByNameAndCategoryId(name, categoryId);
 		
 		if(null == products)
 			throw new EntityNotFoundException("Not found the product by " + name + " and category id " + categoryId);

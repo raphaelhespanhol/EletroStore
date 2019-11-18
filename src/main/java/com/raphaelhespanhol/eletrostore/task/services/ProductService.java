@@ -37,7 +37,7 @@ public class ProductService {
 		return repository.findAllWithoutImages();
 	}
 	
-	public List<Object> findByName(String name) {
+	public List<Object> findAllByName(String name) {
 		return repository.findAllByName(name);
 	}
 	
@@ -45,8 +45,8 @@ public class ProductService {
 		return repository.findAllByCategoryId(categoryId);
 	}
 	
-	public List<Object> findByNameAndCategoryId(String name, Long categoryId) {
-		return repository.findByNameAndCategoryId(name, categoryId);
+	public List<Object> findAllByNameAndCategoryId(String name, Long categoryId) {
+		return repository.findAllByNameAndCategoryId(name, categoryId);
 	}
 	
 	public void deleteById(Long id) {
